@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'animais/css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'animais/css/animais-style.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+    integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+    integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+    crossorigin=""></script>
+
+    <title>Animais</title>
+</head>
+<body>
+    <div class="container">
+        <div class="animais">
+            {% for animal in animais %}
+            <div class="animalinfo">
+                <p> {{ animal.username }}</p>
+                <p> {{ animal.endereço }}</p>  
+                <p> {{ animal.descriçao }}</p>  
+                <p>{{ animal.coordX }}</p> 
+                <p>{{ animal.coordY }} </p>    
+                <img src="{{ animal.foto }}"></img>  
+            </div>
+            {% endfor %}
+        </div>
+        <div class="map" id="mapid">
+
+
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static 'animais/js/animais.js' %}"></script>
+</body>
+</html>

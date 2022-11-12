@@ -1,0 +1,42 @@
+.root{
+    --bgcolor: #101010; 
+    --white1: #d9d9d9;
+}
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+    display: flex;
+}
+
+.animais {
+    width: 30%;
+    font-size: 20px;
+    margin: 50px;
+}
+
+.animalinfo {
+    width: 60%¨;
+    background-color: #d9d9d9;
+    margin: 5%;
+}
+.animais div:hover{
+    background-color: #683a3a; 
+}
+.animais img {
+    width: 30%;
+    margin-left: 10%;
+
+}
+.animais img:hover {
+    opacity:0.8;
+}
+
+
+#mapid {
+    width: 700px;
+    height: 700px;
+    margin-top: 50px;
+
+}
