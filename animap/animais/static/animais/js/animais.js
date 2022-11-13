@@ -3,7 +3,7 @@
 
 
 // render map
-var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+var mymap = L.map('mapid').setView([-6.1124964, -38.2062628], 13);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
@@ -42,7 +42,7 @@ animalinfo = document.querySelectorAll('.animalinfo')
 function centralizarAnimal(){
     animais.forEach((animal, index) => {
         animalinfo[index].addEventListener("click", (event) => {
-            mymap.flyTo([animal.coordX, animal.coordY], 30)
+            mymap.flyTo([animal.coordX, animal.coordY], 17)
 
         }        
         )

@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'animais/css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'animais/css/animais-style.css' %}">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
@@ -17,24 +20,41 @@
     <title>Animais</title>
 </head>
 <body>
-    <div class="container">
+    <header>
+        <div class="nav container">
+            <iconify-icon class="logo" icon="emojione-monotone:paw-prints" style="color: #d9d9d9;"></iconify-icon>
+            <h1> Animaps</h1>
+            <ul class="navbar">
+                <li><a href="#" class=nav-link> Adicionar avistamento</a></li>
+                <li><a href="#" class=nav-link> Mapa de Avistamentos</a></li>
+            </ul>
+            </div>
+        </div>
+        </header>
+    
+    <div class="content-container">
         <div class="animais">
             {% for animal in animais %}
             <div class="animalinfo">
-                <p> {{ animal.username }}</p>
-                <p> {{ animal.endereço }}</p>  
-                <p> {{ animal.descriçao }}</p>  
-                <p>{{ animal.coordX }}</p> 
-                <p>{{ animal.coordY }} </p>    
-                <img src="{{ animal.foto }}"></img>  
+                <div class="animal-li">
+                <p class="itanimal"> {{ animal.username }}</p>
+                <p class="itanimal"> {{ animal.endereço }}</p>  
+                <p class="itanimal"> {{ animal.descriçao }}</p>  
+                <p class="itanimal"> {{ animal.coordX }} </p> 
+                <p class="itanimal"> {{ animal.coordY }} </p>    
+                <img src="{{ animal.foto }}"></img> 
+                </div>
+                 
             </div>
             {% endfor %}
         </div>
-        <div class="map" id="mapid">
-
-
+        <div class="map-container">
+            <div class="map" id="mapid">
         </div>
+        </div>
+        
     </div>
     <script type="text/javascript" src="{% static 'animais/js/animais.js' %}"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
 </body>
 </html>
