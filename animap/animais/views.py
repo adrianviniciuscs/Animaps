@@ -7,15 +7,18 @@ from .models import Animal
 from .serializers import AnimalSerializer 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
-class Animais(TemplateView):
+class Animais(LoginRequiredMixin, TemplateView):
     template_name = "animais/animais.html"
-
+    login_url = 'accounts/login/'
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['animais'] = Animal.objects.all()
         return context
 
+@login_required
 def add_animal(request, *args, **kwargs):
     if request.method == 'POST':
         form = AnimalForm(request.POST)

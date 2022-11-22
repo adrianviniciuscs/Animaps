@@ -27,7 +27,6 @@ function mostrarAnimais(){
       }).setContent('<img src=' + animal.foto + ' style="width: 150px">')
 
       coords = [animal.coordX, animal.coordY]
-
       marker = L.marker(coords).addTo(mymap).bindPopup(pop);
 
       tooltip = L.tooltip({
