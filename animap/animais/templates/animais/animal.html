@@ -40,7 +40,7 @@
     
     <div class="content-container">
         <div class="formulario">
-            <form method="post">
+            <form method="post"  enctype="multipart/form-data">
                 {% csrf_token %}
             <div> 
                 <p>Username</p>
@@ -55,11 +55,15 @@
                 {{ form.descriçao }}
             </div>
             <div> 
-                <p> coordX </p>
+                <p> Ponto de Referência </p>
+                {{ form.ponto_ref }}
+            </div>
+            <div> 
+                <p> Coordenadas X </p>
                 {{ form.coordX }}
             </div>
             <div> 
-                <p> coordY</p>
+                <p> Coordenadas Y</p>
                 {{ form.coordY }}
             </div>
             <div> 

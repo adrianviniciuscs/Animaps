@@ -43,12 +43,16 @@
             {% for animal in animais %}
             <div class="animalinfo">
                 <div class="animal-li">
+                    <p class="itanimal"> {{ animal.user }}</p>
                 <p class="itanimal"> {{ animal.username }}</p>
                 <p class="itanimal"> {{ animal.endereço }}</p>  
                 <p class="itanimal"> {{ animal.descriçao }}</p>  
+                <p class="itanimal">{{ animal.ponto_ref }}</p>
                 <p class="itanimal"> {{ animal.coordX }} </p> 
-                <p class="itanimal"> {{ animal.coordY }} </p>    
-                <img src="{{ animal.foto }}"></img> 
+                <p class="itanimal"> {{ animal.coordY }} </p>   
+                {% if animal.foto %} 
+                <img src="{{ animal.foto.url }}"></img> 
+                {% endif%}
                 </div>
                  
             </div>

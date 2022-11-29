@@ -17,6 +17,8 @@ from django.contrib import admin, auth
 from django.urls import path
 from animais import views
 from django.conf.urls import include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +26,4 @@ urlpatterns = [
     path('addanimal/', views.add_animal, name='add_animal'),
     path('animaisApi/', views.animaisApi, name='animaisApi'),
     path('accounts/', include('django.contrib.auth.urls')), 
-    ]
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
