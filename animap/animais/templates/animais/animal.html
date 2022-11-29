@@ -29,7 +29,7 @@
             <li><a href="#" class=nav-link> Mapa de Avistamentos</a></li>
             {% if user.is_authenticated %}
                     <li>User: {{ user.get_username }}</li>
-                    <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
+                    <li><a href="{% url 'deslogarUsuario' %}?next={{ request.path }}">Logout</a>
                 {% else %} 
                 <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
                 {% endif %}
