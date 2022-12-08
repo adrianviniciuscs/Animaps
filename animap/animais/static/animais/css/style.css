@@ -4,8 +4,8 @@
 }
 * {
     font-family: 'Montserrat', sans-serif;
-    background-color: #fff;
-    color: #101010;
+    background-color: #101010;
+    color: #d9d9d9;
 }
 
 /* ----- Header -----  */
@@ -27,7 +27,6 @@ header {
     display: flex;
     align-items:center;
     justify-content: space-between;
-    padding: 20px 0;
 }
 
 .logo{
@@ -48,7 +47,7 @@ header {
     margin-top: 15px;
 }
 .formulario{
-    width: 60%;
+    width: 450px;
     text-align: center;  
 }
 .formulario p {
@@ -59,9 +58,12 @@ header {
     text-align: center;
     justify-content: flex-start;
 }
+
 input {
     width: 70%;
     font-size: 22px;
+    background-color: #d9d9d9;
+    color: black;
 }
 
 button {
@@ -79,9 +81,9 @@ button:hover {
     color: #d9d9d9;
 }
 .map-container {
-    position: relative;
     width: 100%;
 }
+
 .results {
     font-size: 20px;
     color: #101010;
@@ -95,7 +97,12 @@ button:hover {
     color: white; 
 }
 
+.hide {
+    display: none !important;
+}
+
 #mapid {
-    width: 1000px;
-    height: 500px;
+    margin-left: 80px;
+    width: 700px;
+    height: 400px;
 }

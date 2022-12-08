@@ -25,7 +25,6 @@ header {
     display: flex;
     align-items:center;
     justify-content: space-between;
-    padding: 20px 0;
 }
 
 .logo{
@@ -45,9 +44,13 @@ header {
 }
 
 .animais {
-    width: 50%;
-    font-size: 20px;
-    display: inline-block;
+    width: 35%;
+    height: 550px;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+
 
 }
 
@@ -57,17 +60,39 @@ header {
 
 
 .animais img {
-    width: 80%;
-    margin-left: 10%;
+    width: 60%;
+    margin-left: 5px;
 }
 
 .animais img:hover {
     opacity:0.8;
 }
 
+.detail {
+    display: flex;
+
+}
+
+.detail button {
+    height: 50px;
+    width: 100px;
+    margin-top: 120px;
+    margin-left: 45px;
+    margin-bottom: 10px;
+    background-color: #d9d9d9;
+    transition: all linear 0.5;
+    color: black;
+    font-size: 15px;
+}
+
+button:hover {
+    background-color: #4b4b4b;
+    color: #d9d9d9;
+}
+
 #mapid {
     width: 700px;
-    height: 700px;
-    margin-top: 50px;
-    position: fixed;
+    height: 520px;
+    margin-left: 50px;
+    position: absolute;
 }

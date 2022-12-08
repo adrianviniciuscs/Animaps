@@ -25,14 +25,11 @@
         <iconify-icon class="logo" icon="emojione-monotone:paw-prints" style="color: #d9d9d9;"></iconify-icon>
         <h1> Animaps</h1>
         <ul class="navbar">
-            <li><a href="#" class=nav-link> Adicionar avistamento</a></li>
-            <li><a href="#" class=nav-link> Mapa de Avistamentos</a></li>
-            {% if user.is_authenticated %}
-                    <li>User: {{ user.get_username }}</li>
-                    <li><a href="{% url 'deslogarUsuario' %}?next={{ request.path }}">Logout</a>
-                {% else %} 
-                <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
-                {% endif %}
+            <li>User: {{ user.get_username }}</li>
+            <li><a href="{% url 'add_animal' %}" class=nav-link> Adicionar nova denúncia</a></li>
+            <li><a href="#" class=nav-link> Painel do usuário</a></li>
+            <li><a href="{% url 'animais' %}"class=nav-link> Mapa</a></li>
+            <li><a href="{% url 'deslogarUsuario' %}?next={{ request.path }}">Logout</a>
         </ul>
         </div>
     </div>
@@ -58,11 +55,11 @@
                 <p> Ponto de Referência </p>
                 {{ form.ponto_ref }}
             </div>
-            <div> 
+            <div class="hide"> 
                 <p> Coordenadas X </p>
                 {{ form.coordX }}
             </div>
-            <div> 
+            <div class="hide"> 
                 <p> Coordenadas Y</p>
                 {{ form.coordY }}
             </div>

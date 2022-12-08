@@ -1,36 +1,59 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Alterar senha</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% load static %}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href=" {% static 'animais/css/login-style.css' %}">
+        <link rel="stylesheet" href="{% static 'animais/css/reset.css' %}">
+        <link rel="stylesheet" href="{% static 'animais/css/animais-style.css' %}">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+        integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
+        crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+        integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+        crossorigin=""></script>
+    
+        <title>Alterar Senha</title>
 </head>
 <body>
-
+    <header>
+        <div class="nav container">
+            <iconify-icon class="logo" icon="emojione-monotone:paw-prints" style="color: #d9d9d9;"></iconify-icon>
+            <h1> Animaps</h1>
+            <ul class="navbar">
+            </ul>
+            </div>
+        </div>
+        </header>
 <form method="post">
     {% csrf_token %}
+    <div class="login-container">
+        <h1> Login </h1> 
+        <div class="input">
+            {{form.senha.old_password.errors}}
+            <p> Senha atual: </p>
+            {{form_senha.old_password}}
+        </div>
+        <div class="input">
+            {{form_senha.new_password1.errors}}
+            <p> Nova senha: </p>
+            {{form_senha.new_password1}}
+        </div>
+        <div class="input">
+            {{form_senha.new_password2.errors}}
+            <p> Confirmar senha </p>
+            {{form_senha.new_password2}}
+        </div>
+        <div class="btn">
+            <input type="submit" value="Alterar" class="button"> 
+        </div>
 
-    <div class="form-group">
-        {{form_senha.old_password.errors}}
-        <label>Senha antiga: </label>
-        {{form_senha.old_password}}
-    </div>
-
-    <div class="form-group">
-        {{form_senha.new_password1.errors}}
-        <label>Nova senha: </label>
-        {{form_senha.new_password1}}
-    </div>
-
-    <div class="form-group">
-        {{form_senha.new_password2.errors}}
-        <label>Confirmação de senha: </label>
-        {{form_senha.new_password2}}
-    </div>
-
-    <div class="form-group">
-        <input type="submit" value="Alterar" class="btn btn-primary">
-    </div>
 </form>
-
+<script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
 </body>
 </html>

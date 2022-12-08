@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,40 +19,39 @@
 
     <title>Animais</title>
 </head>
-<body>
+<body>    
     <header>
         <div class="nav container">
             <iconify-icon class="logo" icon="emojione-monotone:paw-prints" style="color: #d9d9d9;"></iconify-icon>
             <h1> Animaps</h1>
             <ul class="navbar">
-                <li><a href="#" class=nav-link> Adicionar avistamento</a></li>
-                <li><a href="#" class=nav-link> Mapa de Avistamentos</a></li>
-                {% if user.is_authenticated %}
-                    <li>User: {{ user.get_username }}</li>
-                    <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
-                {% else %} 
-                <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
-                {% endif %}
+                <li>User: {{ user.get_username }}</li>
+                <li><a href="{% url 'add_animal' %}" class=nav-link> Adicionar nova denúncia</a></li>
+                <li><a href="{% url 'animais' %}" class=nav-link> Painel de denúncias</a></li>
+                <li><a href="{% url 'deslogarUsuario' %}?next={{ request.path }}">Logout</a>
+                
             </ul>
             </div>
         </div>
         </header>
-    
     <div class="content-container">
         <div class="animais">
             {% for animal in animais %}
             <div class="animalinfo">
                 <div class="animal-li">
-                    <p class="itanimal"> {{ animal.user }}</p>
+                <p class="itanimal"> {{ animal.user }}</p>
                 <p class="itanimal"> {{ animal.username }}</p>
                 <p class="itanimal"> {{ animal.endereço }}</p>  
                 <p class="itanimal"> {{ animal.descriçao }}</p>  
-                <p class="itanimal">{{ animal.ponto_ref }}</p>
-                <p class="itanimal"> {{ animal.coordX }} </p> 
-                <p class="itanimal"> {{ animal.coordY }} </p>   
+                <p class="itanimal">{{ animal.ponto_ref }}</p> 
+                <div class="detail"> 
                 {% if animal.foto %} 
                 <img src="{{ animal.foto.url }}"></img> 
                 {% endif%}
+                <button class="detalhar"> Detalhar</button>
+
+                </div> 
+                
                 </div>
                  
             </div>
