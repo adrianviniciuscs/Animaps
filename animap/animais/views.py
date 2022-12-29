@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from django.views.generic import DetailView
 from django.contrib.auth import authenticate, login, logout
 
 class Animais(LoginRequiredMixin, TemplateView):
@@ -19,6 +20,10 @@ class Animais(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(*args, **kwargs)
         context['animais'] = Animal.objects.all()
         return context
+
+class DashboardAnimal(LoginRequiredMixin,DetailView):
+    model = Animal 
+    template_name = 'animais/dashboard-animal.html'
 
 def cadastrar_usuario(request):
     if request.method == "POST":
@@ -34,6 +39,13 @@ def cadastrar_usuario(request):
 def deslogar_usuario(request):
     logout(request)
     return render(request, 'logged_out.html')
+
+
+@login_required(login_url='login')
+def dashboardUser(request):
+    useranimais = Animal.objects.filter(user=request.user)
+    return render(request, 'animais/dashboard-user.html', {'useranimais': useranimais})
+
 
 @login_required(login_url='login')
 def alterar_senha(request):

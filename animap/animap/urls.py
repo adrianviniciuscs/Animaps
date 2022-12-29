@@ -29,5 +29,6 @@ urlpatterns = [
     path('deslogar_usuario', views.deslogar_usuario, name="deslogarUsuario"),
     path('login', views.logar_usuario, name="login"),
     path('alterar_senha/', views.alterar_senha, name='alterarSenha'),
-    
+    path ('dashboardanimal/<uuid:pk>', views.DashboardAnimal.as_view(), name = 'dashboardAnimal'),
+    path('dashboard/', views.dashboardUser, name='dashboardUser'),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
