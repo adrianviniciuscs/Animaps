@@ -14,3 +14,8 @@ class Animal(models.Model):
     coordY = models.FloatField()
     foto = models.ImageField(upload_to='images/', null=True, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    estado = models.CharField(max_length=50, default='pendente', choices=[
+        ('pendente', 'Pendente'), 
+        ('resgatado', 'Resgatado'),
+        ('naolocalizado', 'Não localizado'), 
+    ])

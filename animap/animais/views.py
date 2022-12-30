@@ -3,7 +3,7 @@ from django.views.generic.base import TemplateView
 
 from .forms import AnimalForm
 from .models import Animal
-from .serializers import AnimalSerializer 
+from .serializers import AnimalSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.contrib.auth.decorators import login_required
@@ -11,19 +11,28 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.views.generic import DetailView
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from .pdfgenerator import gerarPDF
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse 
+
+
+
 
 class Animais(LoginRequiredMixin, TemplateView):
-    template_name = "animais/animais.html"
+    template_name = "animais/lista-animais.html"
     login_url = 'login'
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['animais'] = Animal.objects.all()
         return context
 
-class DashboardAnimal(LoginRequiredMixin,DetailView):
-    model = Animal 
+
+class DashboardAnimal(LoginRequiredMixin, DetailView):
+    model = Animal
     template_name = 'animais/dashboard-animal.html'
+
 
 def cadastrar_usuario(request):
     if request.method == "POST":
@@ -34,31 +43,6 @@ def cadastrar_usuario(request):
     else:
         form_usuario = UserCreationForm()
     return render(request, 'signup.html', {'form_usuario': form_usuario})
-
-@login_required(login_url='login')
-def deslogar_usuario(request):
-    logout(request)
-    return render(request, 'logged_out.html')
-
-
-@login_required(login_url='login')
-def dashboardUser(request):
-    useranimais = Animal.objects.filter(user=request.user)
-    return render(request, 'animais/dashboard-user.html', {'useranimais': useranimais})
-
-
-@login_required(login_url='login')
-def alterar_senha(request):
-    if request.method == "POST":
-        form_senha = PasswordChangeForm(request.user, request.POST)
-        if form_senha.is_valid():
-            user = form_senha.save()
-            update_session_auth_hash(request, user)
-            return redirect('add_animal')
-    else:
-        form_senha = PasswordChangeForm(request.user)
-    return render(request, 'alterar_senha.html', {'form_senha': form_senha})
-
 
 def logar_usuario(request):
     if request.method == "POST":
@@ -74,6 +58,53 @@ def logar_usuario(request):
         form_login = AuthenticationForm()
     return render(request, 'login.html', {'form_login': form_login})
 
+@login_required(login_url='login')
+def deslogar_usuario(request):
+    logout(request)
+    return render(request, 'logged_out.html')
+
+
+@login_required(login_url='login')
+def dashboardUser(request):
+    useranimais = Animal.objects.filter(user=request.user)
+    return render(request, 'animais/dashboard-user.html', {'useranimais': useranimais})
+
+
+def gerarRelatorio(request):
+    entry_id = request.GET.get('entry_id')
+
+    pdf_data = gerarPDF(entry_id)
+
+    response = HttpResponse(pdf_data, content_type='application/pdf')
+    response['Content Disposition'] = 'attachment; filename="report.pdf"'
+    return response
+
+def update_estado_view(request):
+    if request.method == 'POST':
+        entry_id = request.POST.get('entry_id')
+        estado = request.POST.get('estado')
+
+        entry = Animal.objects.get(id=entry_id)
+        entry.estado = estado 
+        entry.save()
+
+        return HttpResponseRedirect(reverse('dashboardAnimal', args=[entry_id]))
+    else:
+        return redirect('dashboardAnimal')
+
+    
+@login_required(login_url='login')
+def alterar_senha(request):
+    if request.method == "POST":
+        form_senha = PasswordChangeForm(request.user, request.POST)
+        if form_senha.is_valid():
+            user = form_senha.save()
+            update_session_auth_hash(request, user)
+            return redirect('add_animal')
+    else:
+        form_senha = PasswordChangeForm(request.user)
+    return render(request, 'alterar_senha.html', {'form_senha': form_senha})
+
 @login_required(login_url='/login')
 def add_animal(request, *args, **kwargs):
     if request.method == 'POST':
@@ -81,15 +112,16 @@ def add_animal(request, *args, **kwargs):
         if form.is_valid():
             form.instance.user = request.user
             form.save()
-            return redirect('success.html')
+            
         else:
             print(form.errors)
     form = AnimalForm()
     ctx = {'form': form}
-    return render(request, 'animais/animal.html', ctx)
+    return render(request, 'animais/add-animal.html', ctx)
+
 
 @api_view(['GET'])
-def animaisApi (request, *args, **kwargs):
+def animaisApi(request, *args, **kwargs):
     animais = Animal.objects.all()
     data = AnimalSerializer(animais, many=True).data
     return Response(data)

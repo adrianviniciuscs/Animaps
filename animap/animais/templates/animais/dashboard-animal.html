@@ -14,6 +14,14 @@
 <p>Ponto de referência: {{ animal.ponto_ref }}</p>
 <p>Coordenadas X: {{ animal.coordX }}</p>
 <p>Coordenadas Y: {{ animal.coordY }}</p>
+
+<form action="{% url 'update_estado' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="entry_id" value="{{ animal.id }}">
+    <button type="submit" name="estado" value="resgatado">Marcar como resgatado</button>
+    <button type="submit" name="estado" value="naolocalizado">Marcar como não localizado</button>
+  </form>
+<a href="{% url 'gerarRelatorio' %}?entry_id={{ animal.id }}">Baixar relatório PDF</a>
 {% if animal.foto %}
     <img src="{{ animal.foto.url }}" alt="{{ animal.username }}">
 {% endif %}

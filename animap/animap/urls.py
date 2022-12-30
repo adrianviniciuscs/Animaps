@@ -31,4 +31,6 @@ urlpatterns = [
     path('alterar_senha/', views.alterar_senha, name='alterarSenha'),
     path ('dashboardanimal/<uuid:pk>', views.DashboardAnimal.as_view(), name = 'dashboardAnimal'),
     path('dashboard/', views.dashboardUser, name='dashboardUser'),
+    path('report/', views.gerarRelatorio, name='gerarRelatorio'),
+    path('update_estado/', views.update_estado_view, name='update_estado'),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
