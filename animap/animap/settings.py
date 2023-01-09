@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = '69$#rwq7^p4_9^52j+&xxh-kk3*)!4=k-=p(dbk8)we(d&lpn2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -79,8 +79,13 @@ WSGI_APPLICATION = 'animap.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'db_animaps',
+        'USER' : 'postgres',
+    'PASSWORD' : '123',
+    'HOST' : 'localhost',
+    'PORT' : '5432',
+
     }
 }
 

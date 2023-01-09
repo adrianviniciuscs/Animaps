@@ -5,7 +5,7 @@ import uuid
 
 # Create your models here.
 class Animal(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    temp_id = models.UUIDField(default=uuid.uuid4)
     username = models.CharField(max_length = 150)
     endereço = models.CharField(max_length = 300)
     descriçao = models.CharField(max_length= 350)
