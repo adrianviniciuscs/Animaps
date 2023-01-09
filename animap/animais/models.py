@@ -19,3 +19,4 @@ class Animal(models.Model):
         ('resgatado', 'Resgatado'),
         ('naolocalizado', 'Não localizado'), 
     ])
+

@@ -28,11 +28,11 @@
                 <li>User: {{ user.get_username }}</li>
                 <li><a href="{% url 'add_animal' %}" class=nav-link> Adicionar nova denúncia</a></li>
                 <li><a href="{% url 'animais' %}" class=nav-link> Painel de denúncias</a></li>
+                <li><a href="{% url 'dashboardUser' %}" class=nav-link> Painel de usuário</a></li>
                 <li><a href="{% url 'deslogarUsuario' %}?next={{ request.path }}">Logout</a>
                 
             </ul>
             </div>
-        </div>
         </header>
     <div class="content-container">
         <div class="animais">

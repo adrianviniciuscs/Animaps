@@ -6,20 +6,24 @@ from .models import Animal
 from .serializers import AnimalSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.views.generic import DetailView
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from .pdfgenerator import gerarPDF
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse 
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import Group
+from django.contrib.contenttypes.models import ContentType
 
 
 
 
-class Animais(LoginRequiredMixin, TemplateView):
+class Animais(PermissionRequiredMixin,LoginRequiredMixin, TemplateView):
+    permission_required = ('can_delete_animal_entry', 'can_change_entry')
     template_name = "animais/lista-animais.html"
     login_url = 'login'
 
@@ -29,7 +33,8 @@ class Animais(LoginRequiredMixin, TemplateView):
         return context
 
 
-class DashboardAnimal(LoginRequiredMixin, DetailView):
+class DashboardAnimal(PermissionRequiredMixin, LoginRequiredMixin, DetailView):
+    permission_required = ('can_delete_animal_entry', 'can_change_entry')
     model = Animal
     template_name = 'animais/dashboard-animal.html'
 
@@ -69,7 +74,7 @@ def dashboardUser(request):
     useranimais = Animal.objects.filter(user=request.user)
     return render(request, 'animais/dashboard-user.html', {'useranimais': useranimais})
 
-
+@permission_required(['can_delete_animal_entry', 'can_change_entry'])
 def gerarRelatorio(request):
     entry_id = request.GET.get('entry_id')
 
@@ -79,6 +84,7 @@ def gerarRelatorio(request):
     response['Content Disposition'] = 'attachment; filename="report.pdf"'
     return response
 
+@permission_required(['can_delete_animal_entry', 'can_change_entry'])
 def update_estado_view(request):
     if request.method == 'POST':
         entry_id = request.POST.get('entry_id')
@@ -91,6 +97,13 @@ def update_estado_view(request):
         return HttpResponseRedirect(reverse('dashboardAnimal', args=[entry_id]))
     else:
         return redirect('dashboardAnimal')
+
+@permission_required(['can_delete_animal_entry', 'can_change_entry'])
+def deletar_animal_view(request, entry_id):
+    entry = get_object_or_404(Entry, pk=entry_id)
+    if request.method == 'POST':
+        entry.delete()
+        return redirect('animais')
 
     
 @login_required(login_url='login')

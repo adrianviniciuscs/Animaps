@@ -33,4 +33,5 @@ urlpatterns = [
     path('dashboard/', views.dashboardUser, name='dashboardUser'),
     path('report/', views.gerarRelatorio, name='gerarRelatorio'),
     path('update_estado/', views.update_estado_view, name='update_estado'),
+    path('delete/<int:entry_id>/', views.deletar_animal_view, name='delete_view'),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
