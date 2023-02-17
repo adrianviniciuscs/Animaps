@@ -1,7 +1,7 @@
 # Animaps
 Animaps é um sistema web projetado para permitir que as pessoas reportem animais abandonados nas ruas à Zoonoses da administração pública. Para adicionar uma denúncia, os usuários inserem informações sobre o animal (descrição, endereço, ponto de referência e foto) e marcam no mapa. As informações sobre as denúncias são exibidas em um painel para os administradores do site, juntamente com um mapa que mostra todas as denúncias.
 
-Vídeo de demonstração [_aqui_](https://www.example.com). <!-- If you have the project hosted somewhere, include the link here. -->
+Vídeo de demonstração [_aqui_](https://drive.google.com/file/d/1Q4ufFsamGqmXTfEM5r9crPijr8vtOsqt/view?usp=sharing).
 
 ## Sumário
 * [Introdução](#introdução)
@@ -30,7 +30,15 @@ A ideia deste projeto nasceu como solução do problema de não haver uma forma 
 - Geração de relatório para cada denúncia, permitindo a impressão das informações para uso em campo.
 
 ## Capturas de Tela
-![Example screenshot](./img/screenshot.png)
+### Tela para adicionar denúncias
+![Tela - AddDenuncia](https://user-images.githubusercontent.com/93016748/219728533-b4189bcd-db46-46b1-83b7-4a8bcf43b5d8.png)
+
+### Painel de denúncias do administrador.
+![Tela de denuncias](https://user-images.githubusercontent.com/93016748/219728263-cedd8daf-f71c-46e6-b71a-4fec4654a5bd.png)
+
+### Detalhamento de denúncia
+![Detalhamento de denuncia](https://user-images.githubusercontent.com/93016748/219728586-60da5ae4-ff34-41ed-8af3-a9d4f555ea1e.png)
+
 
 ## Estado do Projeto
 O projeto continua em desenvolvimento de forma constante e contínua, melhorando as funcionalidades existentes e adicionando novas funcionalidades.
@@ -52,8 +60,7 @@ Criado por @adrianviniciuscs - sinta-se livre para entrar em contato comigo em a
 
 ### EN
 # Animaps
-> Animaps is a web app that permits the users to report stray animals to the local zoonoses administration. To make a report, users add informations about the animal (description, address, landmark and photo) and mark the location on the map. The data is then provided in a dashboard for the website administrators, with a map that shows all reports.
-> Demo video [_here_](https://www.example.com). <!-- If you have the project hosted somewhere, include the link here. -->
+ Animaps is a web app that permits the users to report stray animals to the local zoonoses administration. To make a report, users add informations about the animal (description, address, landmark and photo) and mark the location on the map. The data is then provided in a dashboard for the website administrators, with a map that shows all reports.
 
 ## Table of contents
 * [General Information](#general-information)
