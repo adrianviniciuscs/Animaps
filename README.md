@@ -7,7 +7,7 @@ Vídeo de demonstração [_aqui_](https://www.example.com). <!-- If you have the
 * [Introdução](#introdução)
 * [Tecnologias utilizadas](#tecnologias-utilizadas)
 * [Funcionalidades](#funcionalidades)
-* [Screenshots](#capturas-de-tela)
+* [Capturas de tela](#capturas-de-tela)
 * [Estado do projeto](#estado-do-projeto)
 * [Melhorias Futuras](#melhorias-futuras)
 * [Agradecimentos](#agradecimentos)
