@@ -4,8 +4,8 @@ Animaps é um sistema web projetado para permitir que as pessoas reportem animai
 Vídeo de demonstração [_aqui_](https://www.example.com). <!-- If you have the project hosted somewhere, include the link here. -->
 
 ## Sumário
-* [Informações Gerais](#informações-gerais)
-* [Tecnologias utilizadas](#technologies-used)
+* [Introdução](#introdução)
+* [Tecnologias utilizadas](#tecnologias-utilizadas)
 * [Funcionalidades](#funcionalidades)
 * [Screenshots](#capturas-de-tela)
 * [Estado do projeto](#estado-do-projeto)
