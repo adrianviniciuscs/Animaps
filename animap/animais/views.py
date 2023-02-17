@@ -88,10 +88,10 @@ def gerarRelatorio(request):
 def update_estado_view(request):
     if request.method == 'POST':
         entry_id = request.POST.get('entry_id')
-        estado = request.POST.get('estado')
+        estado = request.POST.get('state')
 
         entry = Animal.objects.get(id=entry_id)
-        entry.estado = estado 
+        entry.state = state
         entry.save()
 
         return HttpResponseRedirect(reverse('dashboardAnimal', args=[entry_id]))

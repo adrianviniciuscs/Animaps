@@ -27,9 +27,7 @@
             <ul class="navbar">
                 <li>User: {{ user.get_username }}</li>
                 <li><a href="{% url 'add_animal' %}" class=nav-link> Adicionar nova denúncia</a></li>
-                {% if user.groups.filter(name='Administradores').exists %}
                 <li><a href="{% url 'add_animal' %}">Painel de denúncias</a>               
-                {% endif %}
                 <li><a href="{% url 'dashboardUser' %}" class=nav-link> Painel de usuário</a></li>
                 <li><a href="{% url 'deslogarUsuario' %}?next={{ request.path }}">Logout</a>
                 

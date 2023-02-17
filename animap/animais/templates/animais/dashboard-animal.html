@@ -55,14 +55,9 @@
     <form action="{% url 'update_estado' %}" method="post">
         {% csrf_token %}
         <input type="hidden" name="entry_id" value="{{ animal.id }}">
-        <button type="submit" name="estado" value="resgatado">Marcar como resgatado</button>
-        <button type="submit" name="estado" value="naolocalizado">Marcar como não localizado</button>
+        <button type="submit" name="state" value="resgatado">Marcar como resgatado</button>
+        <button type="submit" name="state" value="naolocalizado">Marcar como não localizado</button>
         <a class="button" href="{% url 'gerarRelatorio' %}?entry_id={{ animal.id }}">Baixar relatório PDF</a>
-      </form>
-      <form method="post" action="{% url 'delete_view' entry.id %}">
-        {% csrf_token %}
-        <button type="submit" class="button">Delete</button>
-      </form>
 </div>    
 </div>
 <script type="text/javascript" src="{% static 'animais/js/dashmap.js' %}"></script>

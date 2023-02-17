@@ -48,7 +48,7 @@
                 {% if animal.foto %} 
                 <img src="{{ animal.foto.url }}"></img> 
                 {% endif%}
-                <a href="{% url 'dashboardAnimal' pk=animal.id %}" target="__blank" class="detalhar"> Detalhar </a>
+                <a class ="detalhar-btn" href="{% url 'dashboardAnimal' pk=animal.id %}" target="__blank" class="detalhar"> Detalhar </a>
                 </div> 
                 </div>
              
