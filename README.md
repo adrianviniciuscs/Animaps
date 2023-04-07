@@ -89,7 +89,15 @@ This project aimed to create an effective way of contact between the municipal z
 - The report generation system enables printing the data for each report so the technicians in the field can access it more easily.
 
 ## Screenshots
-![Example screenshot](./img/screenshot.png)
+
+### Adding a new report
+[Adding new report](https://user-images.githubusercontent.com/93016748/219728533-b4189bcd-db46-46b1-83b7-4a8bcf43b5d8.png)
+
+### Reports dashboard
+[Dashboard](https://user-images.githubusercontent.com/93016748/219728263-cedd8daf-f71c-46e6-b71a-4fec4654a5bd.png)
+
+### Report details
+[Report Details](https://user-images.githubusercontent.com/93016748/219728586-60da5ae4-ff34-41ed-8af3-a9d4f555ea1e.png)
 
 ## Project Status
 The project is under development. The existing features are being enhanced and new features are being added. 
