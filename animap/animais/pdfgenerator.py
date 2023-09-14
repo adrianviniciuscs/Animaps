@@ -23,7 +23,6 @@ def gerarPDF(entry_id):
     canvas.drawString(1 * inch, 7 * inch, f"Coordenadas: ({entry.coordX}, {entry.coordY})")
     canvas.drawString(1 * inch, 6.5 * inch, f"Estado: {entry.estado}")
 
-
     canvas.save()
     pdf_data = pdf_file.getvalue()
     return pdf_data

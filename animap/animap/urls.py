@@ -3,7 +3,7 @@
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
 Examples:
-Function views
+    Function views
     1. Add an import:  from my_app import views
     2. Add a URL to urlpatterns:  path('', views.home, name='home')
 Class-based views
@@ -21,17 +21,18 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('animais/', views.Animais.as_view(), name='animais'),
-    path('addanimal/', views.add_animal, name='add_animal'),
-    path('animaisApi/', views.animaisApi, name='animaisApi'),
-    path('cadastro', views.cadastrar_usuario , name="cadastroUsuario"), 
-    path('deslogar_usuario', views.deslogar_usuario, name="deslogarUsuario"),
-    path('login', views.logar_usuario, name="login"),
-    path('alterar_senha/', views.alterar_senha, name='alterarSenha'),
-    path ('dashboardanimal/<uuid:pk>', views.DashboardAnimal.as_view(), name = 'dashboardAnimal'),
-    path('dashboard/', views.dashboardUser, name='dashboardUser'),
-    path('report/', views.gerarRelatorio, name='gerarRelatorio'),
-    path('update_estado/', views.update_estado_view, name='update_estado'),
-    path('delete/<int:entry_id>/', views.deletar_animal_view, name='delete_view'),
-    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+        path('admin/', admin.site.urls),
+        path('animais/', views.Animais.as_view(), name='animais'),
+        path('addanimal/', views.add_animal, name='add_animal'),
+        path('animaisApi/', views.animaisApi, name='animaisApi'),
+        path('cadastro', views.cadastrar_usuario, name="cadastroUsuario"),
+        path('deslogar_usuario', views.deslogar_usuario,name="deslogarUsuario"),
+        path('login', views.logar_usuario, name="login"),
+        path('alterar_senha/', views.alterar_senha, name='alterarSenha'),
+        path('dashboardanimal/<uuid:pk>', views.DashboardAnimal.as_view(), name = 'dashboardAnimal') 
+        path('dashboard/', views.dashboardUser, name='dashboardUser'),
+        path('report/', views.gerarRelatorio, name='gerarRelatorio'),
+        path('update_estado/', views.update_estado_view, name='update_estado'),
+        path('delete/<int:entry_id>/', views.deletar_animal_view, name='delete_view'),
+        ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

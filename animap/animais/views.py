@@ -20,8 +20,6 @@ from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
 
 
-
-
 class Animais(PermissionRequiredMixin,LoginRequiredMixin, TemplateView):
     permission_required = ('can_delete_animal_entry', 'can_change_entry')
     template_name = "animais/lista-animais.html"
@@ -37,7 +35,6 @@ class DashboardAnimal(PermissionRequiredMixin, LoginRequiredMixin, DetailView):
     permission_required = ('can_delete_animal_entry', 'can_change_entry')
     model = Animal
     template_name = 'animais/dashboard-animal.html'
-
 
 def cadastrar_usuario(request):
     if request.method == "POST":
@@ -63,6 +60,7 @@ def logar_usuario(request):
         form_login = AuthenticationForm()
     return render(request, 'login.html', {'form_login': form_login})
 
+
 @login_required(login_url='login')
 def deslogar_usuario(request):
     logout(request)
@@ -74,6 +72,7 @@ def dashboardUser(request):
     useranimais = Animal.objects.filter(user=request.user)
     return render(request, 'animais/dashboard-user.html', {'useranimais': useranimais})
 
+
 @permission_required(['can_delete_animal_entry', 'can_change_entry'])
 def gerarRelatorio(request):
     entry_id = request.GET.get('entry_id')
@@ -84,12 +83,12 @@ def gerarRelatorio(request):
     response['Content Disposition'] = 'attachment; filename="report.pdf"'
     return response
 
+
 @permission_required(['can_delete_animal_entry', 'can_change_entry'])
 def update_estado_view(request):
     if request.method == 'POST':
         entry_id = request.POST.get('entry_id')
         estado = request.POST.get('state')
-
         entry = Animal.objects.get(id=entry_id)
         entry.state = state
         entry.save()
@@ -105,7 +104,7 @@ def deletar_animal_view(request, entry_id):
         entry.delete()
         return redirect('animais')
 
-    
+
 @login_required(login_url='login')
 def alterar_senha(request):
     if request.method == "POST":
@@ -118,6 +117,7 @@ def alterar_senha(request):
         form_senha = PasswordChangeForm(request.user)
     return render(request, 'alterar_senha.html', {'form_senha': form_senha})
 
+
 @login_required(login_url='/login')
 def add_animal(request, *args, **kwargs):
     if request.method == 'POST':
@@ -125,7 +125,6 @@ def add_animal(request, *args, **kwargs):
         if form.is_valid():
             form.instance.user = request.user
             form.save()
-            
         else:
             print(form.errors)
     form = AnimalForm()
