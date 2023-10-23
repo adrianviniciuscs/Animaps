@@ -1,67 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
-    integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
-    crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
-    integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+        integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
+        crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+            integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
     crossorigin=""></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
-    <title>Visão Detalhada</title>
-</head>
+        <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+        <title>Visão Detalhada</title>
+    </head>
 
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
-
-<header class="bg-blue-600 p-4 text-white">
-
-    {% include '../templs/header.html' %}
+    <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
 
-<div class="container mx-auto p-8">
-    <div class="bg-white p-4 rounded shadow-lg mb-8">
-        {% if animal.foto %}
-        <img src="{{ animal.foto.url }}" alt="{{ animal.username }}" class="w-full h-auto">
-        {% endif %}
-        <h2 class="text-2xl font-bold mb-2">Username: {{ animal.user }}</h2>
-        <h2 class="text-2xl font-bold mb-2">Nome do Usuário: {{ animal.username }}</h2>
-        <h2 class="text-2xl font-bold mb-2">Endereço: {{ animal.endereço }}</h2>
-        <h2 class="text-2xl font-bold mb-2">Descrição: {{ animal.descriçao }}</h2>
-        <h2 class="text-2xl font-bold mb-2">Ponto de Referência: {{ animal.ponto_ref }}</h2>
-        <h3 class="text-xl font-bold mb-2 coordX">Coordenadas X: {{ animal.coordX }}</h3>
-        <h3 class="text-xl font-bold mb-2 coordY">Coordenadas Y: {{ animal.coordY }}</h3>
-        <h3 class="text-xl font-bold mb-2">Identificador: {{ animal.id }}</h3>
-    </div>
+            {% include '../templs/header.html' %}
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="bg-white p-4 rounded shadow-lg">
-            <h2 class="text-2xl font-bold mb-4">Localização:</h2>
-            <div id="mapid" class="h-80"></div>
-        </div>
 
-        <div class="bg-white p-4 rounded shadow-lg ">
-            <form action="{% url 'update_estado' %}" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="entry_id" value="{{ animal.id }}">
-                <button type="submit" name="state" value="resgatado" class="bg-blue-500 text-white px-4 py-2 rounded mb-2 block w-full">Marcar como resgatado</button>
-                <button type="submit" name="state" value="naolocalizado" class="bg-blue-500 text-white px-4 py-2 rounded mb-2 block w-full">Marcar como não localizado</button>
-            </form>
-            <a href="{% url 'gerarRelatorio' %}?entry_id={{ animal.id }}" class="bg-blue-500 text-white px-4 py-2 text-center rounded mb-2 block w-full">Baixar relatório PDF</a>
-        </div>
-    </div>
+            <div class="container mx-auto p-8">
+                <div class="bg-white p-4 rounded shadow-lg mb-8">
+                    {% if animal.foto %}
+                    <img src="{{ animal.foto.url }}" alt="{{ animal.username }}" class="w-full h-auto">
+                    {% endif %}
+                    <h2 class="text-2xl font-bold mb-2">Username: {{ animal.user }}</h2>
+                    <h2 class="text-2xl font-bold mb-2">Nome do Usuário: {{ animal.username }}</h2>
+                    <h2 class="text-2xl font-bold mb-2">Endereço: {{ animal.endereço }}</h2>
+                    <h2 class="text-2xl font-bold mb-2">Descrição: {{ animal.descriçao }}</h2>
+                    <h2 class="text-2xl font-bold mb-2">Ponto de Referência: {{ animal.ponto_ref }}</h2>
+                    <h3 class="text-xl font-bold mb-2 coordX">Coordenadas X: {{ animal.coordX }}</h3>
+                    <h3 class="text-xl font-bold mb-2 coordY">Coordenadas Y: {{ animal.coordY }}</h3>
+                    <h3 class="text-xl font-bold mb-2">Identificador: {{ animal.id }}</h3>
+                    <h3 class="text-xl font-bold mb-2">Estado: {{ animal.state }}</h3>
+                </div>
 
-</div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-4 rounded shadow-lg">
+                        <h2 class="text-2xl font-bold mb-4">Localização:</h2>
+                        <div id="mapid" class="h-80"></div>
+                    </div>
 
-<script type="text/javascript" src="{% static 'animais/js/dashmap.js' %}"></script>
+                    <div class="bg-white p-4 rounded shadow-lg ">
+                        <form action="{% url 'update_estado' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="entry_id" value="{{ animal.id }}">
+                            <button type="submit" name="state" value="Resgatado" class="bg-blue-500 text-white px-4 py-2 rounded mb-2 block w-full">Marcar como resgatado</button>
+                            <button type="submit" name="state" value="Não Localizado" class="bg-blue-500 text-white px-4 py-2 rounded mb-2 block w-full">Marcar como não localizado</button>
+                        </form>
+                        <a href="{% url 'gerarRelatorio' %}?entry_id={{ animal.id }}" class="bg-blue-500 text-white px-4 py-2 text-center rounded mb-2 block w-full">Baixar relatório PDF</a>
+                    </div>
+                </div>
 
-<script type="text/javascript" src="{% static 'animais/js/animais.js' %}"></script>
-</body>
+            </div>
+
+            <script type="text/javascript" src="{% static 'animais/js/dashmap.js' %}"></script>
+
+            <script type="text/javascript" src="{% static 'animais/js/animais.js' %}"></script>
+    </body>
 
 </html>
 

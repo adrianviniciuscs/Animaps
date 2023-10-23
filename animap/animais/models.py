@@ -15,15 +15,9 @@ class Animal(models.Model):
     foto = models.ImageField(upload_to='images/', null=True, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     state = models.CharField(max_length=50, default='pendente', choices=[
-        ('pendente', 'Pendente'), 
-        ('resgatado', 'Resgatado'),
-        ('naolocalizado', 'Não localizado'), 
+        ('Pendente', 'Pendente'), 
+        ('Resgatado', 'Resgatado'),
+        ('Não Localizado', 'Não localizado'), 
     ])
 
-    class Meta:
-        permissions = [
-            ("can_delete_animal_entry", "Can delete animal entry"),
-            ("can_change_entry", "Can change entry"),
-            # Add more permissions as needed
-        ]
 

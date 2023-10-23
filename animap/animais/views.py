@@ -11,6 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.views.generic import DetailView
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.models import Group
 from .pdfgenerator import gerarPDF
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -47,7 +48,9 @@ def cadastrar_usuario(request):
     if request.method == "POST":
         form_usuario = UserCreationForm(request.POST)
         if form_usuario.is_valid():
-            form_usuario.save()
+            user  = form_usuario.save()
+            group = Group.objects.get(name='Usuários')
+            user.groups.add(group)
             return redirect('login')
     else:
         form_usuario = UserCreationForm()
@@ -96,11 +99,10 @@ def gerarRelatorio(request):
 def update_estado_view(request):
     if request.method == 'POST':
         entry_id = request.POST.get('entry_id')
-        estado = request.POST.get('state')
+        state = request.POST.get('state')
         entry = Animal.objects.get(id=entry_id)
         entry.state = state
         entry.save()
-
         return HttpResponseRedirect(reverse('dashboardAnimal', args=[entry_id]))
     else:
         return redirect('dashboardAnimal')
@@ -132,11 +134,13 @@ def add_animal(request, *args, **kwargs):
     if request.method == 'POST':
         form = AnimalForm(request.POST, request.FILES)
         if form.is_valid():
-            form.instance.user = request.user
-            form.save()
+            animal_instance = form.save(commit=False)
+            animal_instance.user = request.user
+            animal_instance.save()
         else:
             print(form.errors)
-    form = AnimalForm()
+    else:
+        form = AnimalForm()
     ctx = {'form': form}
     return render(request, 'animais/add-animal-tw.html', ctx)
 
