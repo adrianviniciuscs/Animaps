@@ -20,18 +20,9 @@
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
 <header class="bg-blue-600 p-4 text-white">
-    <div class="container mx-auto flex justify-between items-center">
-        <iconify-icon class="w-8 h-8 mr-5" icon="emojione-monotone:paw-prints" style="color: #d9d9d9; font-size:40px;"></iconify-icon>
-        <h1 class="text-2xl font-bold">Animaps</h1>
-        <ul class="flex items-center space-x-4">
-            <li>User: {{ user.get_username }}</li>
-            <li><a href="{% url 'add_animal' %}" class="text-white">Adicionar nova denúncia</a></li>
-            <li><a href="{% url 'animais' %} " class="text-white">Painel de denúncias</a></li>
-            <li><a href="{% url 'deslogarUsuario' %}" class="text-white">Logout</a></li>
-            <li><a href="{% url 'dashboardUser' %}" class="text-white">Painel de usuário</a></li>
-        </ul>
-    </div>
-</header>
+
+    {% include '../templs/header.html' %}
+
 
 <div class="container mx-auto p-8">
     <div class="bg-white p-4 rounded shadow-lg mb-8">
@@ -50,18 +41,18 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div class="bg-white p-4 rounded shadow-lg">
-            <h2 class="text-2xl font-bold mb-4">Mapa de Denúncias:</h2>
+            <h2 class="text-2xl font-bold mb-4">Localização:</h2>
             <div id="mapid" class="h-80"></div>
         </div>
 
-        <div class="bg-white p-4 rounded shadow-lg">
+        <div class="bg-white p-4 rounded shadow-lg ">
             <form action="{% url 'update_estado' %}" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="entry_id" value="{{ animal.id }}">
-                <button type="submit" name="state" value="resgatado" class="bg-blue-500 text-white px-4 py-2 rounded mb-2">Marcar como resgatado</button>
-                <button type="submit" name="state" value="naolocalizado" class="bg-blue-500 text-white px-4 py-2 rounded mb-2">Marcar como não localizado</button>
+                <button type="submit" name="state" value="resgatado" class="bg-blue-500 text-white px-4 py-2 rounded mb-2 block w-full">Marcar como resgatado</button>
+                <button type="submit" name="state" value="naolocalizado" class="bg-blue-500 text-white px-4 py-2 rounded mb-2 block w-full">Marcar como não localizado</button>
             </form>
-            <a href="{% url 'gerarRelatorio' %}?entry_id={{ animal.id }}" class="bg-blue-500 text-white px-4 py-2 rounded">Baixar relatório PDF</a>
+            <a href="{% url 'gerarRelatorio' %}?entry_id={{ animal.id }}" class="bg-blue-500 text-white px-4 py-2 text-center rounded mb-2 block w-full">Baixar relatório PDF</a>
         </div>
     </div>
 

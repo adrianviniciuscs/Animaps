@@ -8,19 +8,16 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.contrib.auth.models import User, Permission
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.views.generic import DetailView
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from .pdfgenerator import gerarPDF
 from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse 
+from django.urls import reverse
 from django.shortcuts import get_object_or_404
-from django.contrib.auth.models import Group
-from django.contrib.contenttypes.models import ContentType
 
 
-class Animais(PermissionRequiredMixin, LoginRequiredMixin, TemplateView):
+class DashboardAnimaisView(PermissionRequiredMixin, LoginRequiredMixin, TemplateView):
     permission_required = ('can_delete_animal_entry', 'can_change_entry')
     template_name = "animais/admin-dashboard.html"
     login_url = 'login'
@@ -28,15 +25,19 @@ class Animais(PermissionRequiredMixin, LoginRequiredMixin, TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         animais = Animal.objects.all()
-        count = 0
-        for i in animais:
-            count = count + 1
+        count = animais.count()
+
+        for animal in animais:
+            endereço_formatted = animal.endereço.split(',')[0:4]
+            endereço_formatted = ', '.join(endereço_formatted)
+            animal.endereço = endereço_formatted
+
         context['animais'] = animais
         context['count'] = count
         return context
 
 
-class DashboardAnimal(PermissionRequiredMixin, LoginRequiredMixin, DetailView):
+class DashboardAnimalView(PermissionRequiredMixin, LoginRequiredMixin, DetailView):
     permission_required = ('can_delete_animal_entry', 'can_change_entry')
     model = Animal
     template_name = 'animais/detail-animal.html'
@@ -103,6 +104,7 @@ def update_estado_view(request):
         return HttpResponseRedirect(reverse('dashboardAnimal', args=[entry_id]))
     else:
         return redirect('dashboardAnimal')
+
 
 @permission_required(['can_delete_animal_entry', 'can_change_entry'])
 def deletar_animal_view(request, entry_id):

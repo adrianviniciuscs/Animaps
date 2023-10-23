@@ -17,25 +17,13 @@
     </head>
 
     <body class="bg-gray-100 font-sans leading-normal tracking-normal">
-        <nav class="bg-blue-600 p-4 text-white">
-            <div class="container mx-auto flex justify-between items-center">
-                <!-- Logo -->
-                <div class="flex items-center">
-                    <iconify-icon class="w-8 h-8 mr-5" icon="emojione-monotone:paw-prints" style="color: #d9d9d9; font-size:40px;"></iconify-icon>
-                    <h1 class="text-2xl font-bold">Animaps Admin</h1>
-                </div>
 
-                <!-- Navigation Links -->
-                <ul class="flex items-center space-x-4">
-                    <li><a href="{% url 'add_animal' %}" class="text-white">Adicionar nova denúncia</a></li>
-                    <li><a href="{% url 'animais' %} " class="text-white">Painel de denúncias</a></li>
-                    <li><a href="{% url 'dashboardUser' %} " class="text-white">Painel de usuário</a></li>
-                    <li><a href="{% url 'deslogarUsuario' %}" class="text-white">Logout</a></li>
-                </ul>
-            </div>
-        </nav>
- <!-- Total Animals Card -->
-                <div class="bg-white p-4 rounded shadow-lg">
+
+    {% include '../templs/header.html' %}
+
+
+
+        <div class="bg-white p-4 rounded shadow-lg">
                     <div class="flex items-center justify-between mb-4">
                         <span class="text-xl font-bold">Total de Denúncias Pendentes:</span>
                         <span class="text-2xl font-bold text-blue-600">{{ count  }}</span>
@@ -60,8 +48,7 @@
                         <h3 class="text-xl font-bold mb-2">{{ animal.descriçao }}</h3>
                         <p class="text-gray-700 mb-2">{{ animal.endereço }} </p>
                         <p class="text-gray-700 mb-4">{{ animal.ponto_ref }} </p>
-                        <p class="text-gray-700 mb-4">{{ animal.id }} </p>
-                        <a href="{% url 'dashboardAnimal' pk=animal.id %}"> Detalhar </a>
+                        <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" href="{% url 'dashboardAnimal' pk=animal.id %}"> Detalhar </a>
                     </div>
                     {% endfor %}
                 </div>

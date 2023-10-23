@@ -20,3 +20,10 @@ class Animal(models.Model):
         ('naolocalizado', 'Não localizado'), 
     ])
 
+    class Meta:
+        permissions = [
+            ("can_delete_animal_entry", "Can delete animal entry"),
+            ("can_change_entry", "Can change entry"),
+            # Add more permissions as needed
+        ]
+
