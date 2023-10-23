@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+        integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
+        crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+            integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+    crossorigin=""></script>
+        <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+        <title>Animaps Admin Dashboard</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    </head>
+
+    <body class="bg-gray-100 font-sans leading-normal tracking-normal">
+        <nav class="bg-blue-600 p-4 text-white">
+            <div class="container mx-auto flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <iconify-icon class="w-8 h-8 mr-5" icon="emojione-monotone:paw-prints" style="color: #d9d9d9; font-size:40px;"></iconify-icon>
+                    <h1 class="text-2xl font-bold">Animaps Admin</h1>
+                </div>
+
+                <!-- Navigation Links -->
+                <ul class="flex items-center space-x-4">
+                    <li><a href="{% url 'add_animal' %}" class="text-white">Adicionar nova denúncia</a></li>
+                    <li><a href="{% url 'animais' %} " class="text-white">Painel de denúncias</a></li>
+                    <li><a href="{% url 'dashboardUser' %} " class="text-white">Painel de usuário</a></li>
+                    <li><a href="{% url 'deslogarUsuario' %}" class="text-white">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+ <!-- Total Animals Card -->
+                <div class="bg-white p-4 rounded shadow-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xl font-bold">Total de Denúncias Pendentes:</span>
+                        <span class="text-2xl font-bold text-blue-600">{{ count  }}</span>
+                    </div>
+                </div>
+
+        <div class="container mx-auto p-8">
+          
+            <div class="mt-8 bg-white p-4 rounded shadow-lg">
+                <h2 class="text-2xl font-bold mb-4">Mapa de denúncias:</h2>
+                <div id="mapid" class="h-80"></div>
+            </div>
+        </div>
+        <h2 class="text-2xl font-bold mb-4">Lista de denúncias:</h2>
+            <div class="grid xl:grid-cols-3  gap-8"> 
+           
+                {% for animal in animais %}
+                    <div class="bg-white p-4 rounded shadow-lg">
+                        {% if animal.foto %}         
+                        <img src="{{ animal.foto.url }}" alt="Animal" class="w-full h-32 object-cover mb-4 rounded">
+                        {% endif %}
+                        <h3 class="text-xl font-bold mb-2">{{ animal.descriçao }}</h3>
+                        <p class="text-gray-700 mb-2">{{ animal.endereço }} </p>
+                        <p class="text-gray-700 mb-4">{{ animal.ponto_ref }} </p>
+                        <p class="text-gray-700 mb-4">{{ animal.id }} </p>
+                        <a href="{% url 'dashboardAnimal' pk=animal.id %}"> Detalhar </a>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            </div>
+        <script type="text/javascript" src="{% static 'animais/js/animais.js' %}"> </script>
+        <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"> </script>
+    </body>
+</html>
+

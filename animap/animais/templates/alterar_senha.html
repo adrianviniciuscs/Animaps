@@ -1,59 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    {% load static %}
     <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        {% load static %}
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href=" {% static 'animais/css/login-style.css' %}">
-        <link rel="stylesheet" href="{% static 'animais/css/reset.css' %}">
-        <link rel="stylesheet" href="{% static 'animais/css/animais-style.css' %}">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
         integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
-        crossorigin=""/>
-        <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
         integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
         crossorigin=""></script>
-    
-        <title>Alterar Senha</title>
+    <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+    <title>Alterar Senha</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <header>
-        <div class="nav container">
-            <iconify-icon class="logo" icon="emojione-monotone:paw-prints" style="color: #d9d9d9;"></iconify-icon>
-            <h1> Animaps</h1>
-            <ul class="navbar">
+
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <nav class="bg-blue-600 p-4 text-white">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <iconify-icon class="w-8 h-8 mr-5" icon="emojione-monotone:paw-prints"
+                    style="color: #d9d9d9; font-size:40px;"></iconify-icon>
+                <h1 class="text-2xl font-bold">Animaps Admin</h1>
+            </div>
+
+            <!-- Navigation Links -->
+            <ul class="flex items-center space-x-4">
+                <li><a href="{% url 'add_animal' %}" class="text-white">Adicionar nova denúncia</a></li>
+                <li><a href="{% url 'animais' %} " class="text-white">Painel de denúncias</a></li>
+                <li><a href="{% url 'dashboardUser' %} " class="text-white">Painel de usuário</a></li>
+                <li><a href="{% url 'deslogarUsuario' %}" class="text-white">Logout</a></li>
             </ul>
+        </div>
+    </nav>
+    <form method="post" class="container mx-auto">
+        {% csrf_token %}
+        <div class="">
+            <h1 class="text-2xl font-bold mb-4">Login</h1>
+            <div class="input mb-4">
+                {{form.senha.old_password.errors}}
+                <label class="block text-gray-700 text-sm font-bold mb-2">Senha atual:</label>
+                {{form_senha.old_password}}
+            </div>
+            <div class="input mb-4">
+                {{form_senha.new_password1.errors}}
+                <label class="block text-gray-700 text-sm font-bold mb-2">Nova senha:</label>
+                {{form_senha.new_password1}}
+            </div>
+            <div class="input mb-4">
+                {{form_senha.new_password2.errors}}
+                <label class="block text-gray-700 text-sm font-bold mb-2">Confirmar senha:</label>
+                {{form_senha.new_password2}}
+            </div>
+            <div class="">
+                <input type="submit" value="Alterar" class="button">
             </div>
         </div>
-        </header>
-<form method="post">
-    {% csrf_token %}
-    <div class="login-container">
-        <h1> Login </h1> 
-        <div class="input">
-            {{form.senha.old_password.errors}}
-            <p> Senha atual: </p>
-            {{form_senha.old_password}}
-        </div>
-        <div class="input">
-            {{form_senha.new_password1.errors}}
-            <p> Nova senha: </p>
-            {{form_senha.new_password1}}
-        </div>
-        <div class="input">
-            {{form_senha.new_password2.errors}}
-            <p> Confirmar senha </p>
-            {{form_senha.new_password2}}
-        </div>
-        <div class="btn">
-            <input type="submit" value="Alterar" class="button"> 
-        </div>
-
-</form>
-<script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+    </form>
+    <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
 </body>
+
 </html>
+

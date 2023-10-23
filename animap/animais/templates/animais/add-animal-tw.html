@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar animal</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+    integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+    integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+    crossorigin=""></script>
+</head>
+
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <header class="bg-blue-600 p-4 text-white">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <iconify-icon class="w-8 h-8 mr-5" icon="emojione-monotone:paw-prints" style="color: #d9d9d9; font-size:40px;"></iconify-icon>
+                <h1 class="text-2xl font-bold">Animaps</h1>
+            </div>
+            <ul class="flex items-center space-x-4">
+                <li>User: {{ user.get_username }}</li>
+                <li><a href="{% url 'add_animal' %}" class="text-white">Adicionar nova denúncia</a></li>
+                <li><a href="{% url 'animais' %}" class="text-white">Painel de denúncias</a></li>
+                <li><a href="{% url 'dashboardUser' %}" class="text-white">Painel do usuário</a></li>
+                <li><a href="{% url 'deslogarUsuario' %}?next={{ request.path }}" class="text-white">Logout</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="container mx-auto mt-8 flex">
+        <div class="w-1/2 pr-4">
+            <form method="post" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-lg">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="username" class="block font-bold mb-2">Username</label>
+                    {{ form.username }}
+                </div>
+                <div class="mb-4">
+                    <label for="endereço" class="block font-bold mb-2">Localização</label>
+                    {{ form.endereço }}
+                </div>
+                <div class="mb-4">
+                    <label for="descriçao" class="block font-bold mb-2">Descrição</label>
+                    {{ form.descriçao }}
+                </div>
+                <div class="mb-4">
+                    <label for="ponto_ref" class="block font-bold mb-2">Ponto de Referência</label>
+                    {{ form.ponto_ref }}
+                </div>
+                <div class="hidden">
+                    {{ form.coordX }}
+                </div>
+                <div class="hidden">
+                    {{ form.coordY }}
+                </div>
+                <div class="mb-4">
+                    <label for="foto" class="block font-bold mb-2">Foto</label>
+                    {{ form.foto }}
+                </div>
+                <div>
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded">Enviar</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="w-1/2 pl-4">
+            <div class="bg-white p-4 rounded shadow-lg">
+                <div id="mapid" class="h-80"></div>
+            </div>
+            <div class="mt-4 bg-white p-4 rounded shadow-lg">
+                <input type="text" id="localização" placeholder="Procure um local" class="border border-gray-300 p-2 w-full mb-4">
+                <div class="mb-4">
+                    <button onclick="acheEndereço()" class="bg-blue-600 text-white px-4 py-2 rounded">Procurar</button>
+                </div>
+                <div id="endereços"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="{% static 'animais/js/app.js' %}"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+
+</body>
+
+</html>
+

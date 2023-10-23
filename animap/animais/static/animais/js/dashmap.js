@@ -6,10 +6,12 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(mymap);
 
-const coordXElement = document.querySelector('.coordX');
 const coordYElement = document.querySelector('.coordY');
+const coordYText = coordYElement.textContent;
+const coordYValue = parseFloat(coordYText.split(': ')[1]);
 
-const coordX = Number(coordXElement.textContent);
-const coordY = Number(coordYElement.textContent);
+const coordXElement = document.querySelector('.coordX');
+const coordXText = coordXElement.textContent;
+const coordXValue = parseFloat(coordXText.split(': ')[1]);
 
-marker = L.marker([coordX, coordY]).addTo(mymap);
+marker = L.marker([coordXValue, coordYValue]).addTo(mymap);

@@ -20,21 +20,27 @@ from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
 
 
-class Animais(PermissionRequiredMixin,LoginRequiredMixin, TemplateView):
+class Animais(PermissionRequiredMixin, LoginRequiredMixin, TemplateView):
     permission_required = ('can_delete_animal_entry', 'can_change_entry')
-    template_name = "animais/lista-animais.html"
+    template_name = "animais/admin-dashboard.html"
     login_url = 'login'
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['animais'] = Animal.objects.all()
+        animais = Animal.objects.all()
+        count = 0
+        for i in animais:
+            count = count + 1
+        context['animais'] = animais
+        context['count'] = count
         return context
 
 
 class DashboardAnimal(PermissionRequiredMixin, LoginRequiredMixin, DetailView):
     permission_required = ('can_delete_animal_entry', 'can_change_entry')
     model = Animal
-    template_name = 'animais/dashboard-animal.html'
+    template_name = 'animais/detail-animal.html'
+
 
 def cadastrar_usuario(request):
     if request.method == "POST":
@@ -45,6 +51,7 @@ def cadastrar_usuario(request):
     else:
         form_usuario = UserCreationForm()
     return render(request, 'signup.html', {'form_usuario': form_usuario})
+
 
 def logar_usuario(request):
     if request.method == "POST":
@@ -70,7 +77,7 @@ def deslogar_usuario(request):
 @login_required(login_url='login')
 def dashboardUser(request):
     useranimais = Animal.objects.filter(user=request.user)
-    return render(request, 'animais/dashboard-user.html', {'useranimais': useranimais})
+    return render(request, 'animais/user-dashboard.html', {'useranimais': useranimais})
 
 
 @permission_required(['can_delete_animal_entry', 'can_change_entry'])
@@ -129,7 +136,7 @@ def add_animal(request, *args, **kwargs):
             print(form.errors)
     form = AnimalForm()
     ctx = {'form': form}
-    return render(request, 'animais/add-animal.html', ctx)
+    return render(request, 'animais/add-animal-tw.html', ctx)
 
 
 @api_view(['GET'])

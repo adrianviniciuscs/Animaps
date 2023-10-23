@@ -46,7 +46,7 @@ function mostrarEndereços() {
     addressData.forEach((endereço) => {
       nomeEndereço = endereço.display_name.replace('"', " ");
       endereços.innerHTML +=
-        "<div class='results' onclick='selectEndereço(" +
+        "<div class='hover:bg-blue-100 focus:bg-blue-100 focus-outline-none border focus:border-blue-500' onclick='selectEndereço(" +
         endereço.lat +
         "," +
         endereço.lon +

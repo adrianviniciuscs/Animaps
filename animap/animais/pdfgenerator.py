@@ -8,11 +8,9 @@ import io
 def gerarPDF(entry_id): 
     entry = Animal.objects.get(id=entry_id)
 
-
     pdf_file = io.BytesIO()
     canvas = Canvas(pdf_file, pagesize=letter)
     canvas.setFont('Helvetica', 12)
-
 
     canvas.drawString(1 * inch, 10 * inch, "Relatório:")
     canvas.drawString(1 * inch, 9.5 * inch, f"ID: {entry.id}")
