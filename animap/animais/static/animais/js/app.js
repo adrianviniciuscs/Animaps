@@ -72,10 +72,9 @@ function selectEndereço(x, y, endr) {
 }
 
 function acheEndereço() {
-  url =
-    "https://nominatim.openstreetmap.org/search?format=json&limit3&q=" +
-    endereçoLocal.value;
-  fetch(url)
+    const viewbox = "-38.265381,-6.166838,-38.147278,-6.060672";
+    const url = `https://nominatim.openstreetmap.org/search?format=json&limit=5&viewbox=${viewbox}&bounded=1&q=${endereçoLocal.value}`;
+    fetch(url)
     .then((response) => response.json())
     .then((data) => (addressData = data))
     .then((mostrarEndereço) => mostrarEndereços());

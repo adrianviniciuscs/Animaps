@@ -58,26 +58,6 @@
       </div>
   </div>
 </section>
-    <form method="post" class="container mx-auto">
-        {% csrf_token %}
-        <div class="text-center">
-            <h1 class="text-2xl font-bold mb-4">Login</h1>
-            <div class="input mb-4">
-                <p class="font-bold">Usuário</p>
-                {{form_login.username.errors}}
-                {{form_login.username}}
-            </div>
-            <div class="input mb-4">
-                {{form_login.password.errors}}
-                <p class="font-bold">Senha</p>
-                {{form_login.password}}
-            </div>
-            <div class="btn">
-                <input type="submit" value="Enviar" class="button">
-            </div>
-        </div>
-    </form>
-
     <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
 </body>
 
