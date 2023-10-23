@@ -1,11 +1,11 @@
 from reportlab.lib.pagesizes import letter
-from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
 from reportlab.pdfgen.canvas import Canvas 
 from .models import Animal
 import io
 
-def gerarPDF(entry_id): 
+
+def gerarPDF(entry_id):
     entry = Animal.objects.get(id=entry_id)
 
     pdf_file = io.BytesIO()

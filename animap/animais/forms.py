@@ -1,6 +1,7 @@
 from django import forms
 from .models import Animal
 
+
 class AnimalForm(forms.Form):
     username = forms.CharField(
         max_length=100,
