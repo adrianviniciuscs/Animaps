@@ -1,22 +1,23 @@
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
+from django.views.generic import DetailView
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.models import Group
+from django.urls import reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 from .forms import AnimalForm
 from .models import Animal
 from .serializers import AnimalSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
-from django.views.generic import DetailView
-from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
-from django.contrib.auth.models import Group
-from .pdfgenerator import gerarPDF
-from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
-from django.shortcuts import get_object_or_404
 
+from .pdfgenerator import gerarPDF
 
 class DashboardAnimaisView(PermissionRequiredMixin, LoginRequiredMixin, TemplateView):
     permission_required = ('can_delete_animal_entry', 'can_change_entry')
@@ -25,9 +26,34 @@ class DashboardAnimaisView(PermissionRequiredMixin, LoginRequiredMixin, Template
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        animais = Animal.objects.all()
+        animais = Animal.objects.filter(state='Pendente')
+        count = animais.count()
+        animais_resolvidos = Animal.objects.exclude(state='Pendente')
+        count_resolvidos = animais_resolvidos.count()
+
+        # Removendo partes desnecessárias para o usuário
+        for animal in animais:
+            endereço_formatted = animal.endereço.split(',')[0:4]
+            endereço_formatted = ', '.join(endereço_formatted)
+            animal.endereço = endereço_formatted
+
+        context['animais'] = animais
+        context['count'] = count
+        context['count_resolvidos'] = count_resolvidos
+        return context
+
+
+class DashboardResolvidosView(PermissionRequiredMixin, LoginRequiredMixin, TemplateView):
+    permission_required = ('can_delete_animal_entry', 'can_change_entry')
+    template_name = "animais/resolvidos-dashboard.html"
+    login_url = 'login'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        animais = Animal.objects.filter(Q(state='Resgatado') | Q(state='Não Localizado'))  
         count = animais.count()
 
+        # Removendo partes desnecessárias para o usuário
         for animal in animais:
             endereço_formatted = animal.endereço.split(',')[0:4]
             endereço_formatted = ', '.join(endereço_formatted)
@@ -36,6 +62,7 @@ class DashboardAnimaisView(PermissionRequiredMixin, LoginRequiredMixin, Template
         context['animais'] = animais
         context['count'] = count
         return context
+
 
 
 class DashboardAnimalView(PermissionRequiredMixin, LoginRequiredMixin, DetailView):
@@ -64,7 +91,7 @@ def logar_usuario(request):
         usuario = authenticate(request, username=username, password=password)
         if usuario is not None:
             login(request, usuario)
-            return redirect('add_animal')
+            return redirect('registrar')
         else:
             form_login = AuthenticationForm()
     else:
@@ -73,7 +100,7 @@ def logar_usuario(request):
 
 
 @login_required(login_url='login')
-def deslogar_usuario(request):
+def logoutUsuario(request):
     logout(request)
     return render(request, 'logged_out.html')
 
@@ -85,7 +112,7 @@ def dashboardUser(request):
 
 
 @permission_required(['can_delete_animal_entry', 'can_change_entry'])
-def gerarRelatorio(request):
+def gerar_relatorio(request):
     entry_id = request.GET.get('entry_id')
 
     pdf_data = gerarPDF(entry_id)
@@ -96,16 +123,16 @@ def gerarRelatorio(request):
 
 
 @permission_required(['can_delete_animal_entry', 'can_change_entry'])
-def update_estado_view(request):
+def atualizar_estado_view(request):
     if request.method == 'POST':
         entry_id = request.POST.get('entry_id')
         state = request.POST.get('state')
         entry = Animal.objects.get(id=entry_id)
         entry.state = state
         entry.save()
-        return HttpResponseRedirect(reverse('dashboardAnimal', args=[entry_id]))
+        return HttpResponseRedirect(reverse('relatorio-animal', args=[entry_id]))
     else:
-        return redirect('dashboardAnimal')
+        return redirect('relatorio-animal')
 
 
 @permission_required(['can_delete_animal_entry', 'can_change_entry'])
@@ -113,7 +140,7 @@ def deletar_animal_view(request, entry_id):
     entry = get_object_or_404(Entry, pk=entry_id)
     if request.method == 'POST':
         entry.delete()
-        return redirect('animais')
+        return redirect('painel-relatorios')
 
 
 @login_required(login_url='login')
@@ -123,7 +150,7 @@ def alterar_senha(request):
         if form_senha.is_valid():
             user = form_senha.save()
             update_session_auth_hash(request, user)
-            return redirect('add_animal')
+            return redirect('registrar')
     else:
         form_senha = PasswordChangeForm(request.user)
     return render(request, 'alterar_senha.html', {'form_senha': form_senha})

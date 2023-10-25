@@ -1,8 +1,6 @@
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
-from reportlab.pdfgen.canvas import Canvas 
 from .models import Animal
-from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
 from reportlab.lib.styles import getSampleStyleSheet
 from io import BytesIO
@@ -18,14 +16,13 @@ def gerarPDF(entry_id):
 
     story = []
 
-    # Add a title
     title = Paragraph("<u><b>Relatório - Animaps</b></u>", styles['Title'])
     story.append(title)
 
-    img_path = entry.foto  # Replace with the actual path to your image
+    img_path = entry.foto
     logo = Image(img_path, width=4*inch, height=4*inch)
     story.append(logo)
-    # Add details
+
     details = [
         f"<b>ID:</b> {entry.id}",
         f"<b>Username:</b> {entry.username}",
@@ -39,7 +36,7 @@ def gerarPDF(entry_id):
     for detail in details:
         p = Paragraph(detail, styles['BodyText'])
         story.append(p)
-        story.append(Spacer(1, 12))  # Add some space between details
+        story.append(Spacer(1, 12))
 
     doc.build(story)
 
@@ -47,4 +44,3 @@ def gerarPDF(entry_id):
     buffer.close()
 
     return pdf_data
-

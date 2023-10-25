@@ -12,8 +12,8 @@ var url = "/animaisApi/";
 fetch(url)
   .then((response) => response.json())
   .then((data) => {
-    var animais = data.filter(animal => animal.state === "Pendente");
-    mostrarAnimais(animais);
+    var animais_resolvidos = data.filter(animal => animal.state === "Resgatado" || animal.state === "Não Localizado");
+    mostrarAnimais(animais_resolvidos);
   });
 
 function mostrarAnimais(animais) {
@@ -40,5 +40,4 @@ function centralizarAnimal() {
     });
   });
 }
-
 

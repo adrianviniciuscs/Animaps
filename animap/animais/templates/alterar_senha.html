@@ -1,79 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    {% load static %}
-    {% load widget_tweaks %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+    <head>
+        {% load static %}
+        {% load widget_tweaks %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
         integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
         crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
-        integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+        <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+            integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
         crossorigin=""></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
-    <title>Alterar Senha</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
+        <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+        <title>Alterar Senha</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-gray-100 font-sans leading-normal tracking-normal">
+        <nav class="bg-blue-600 p-4 text-white">
+            <div class="container mx-auto flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <iconify-icon class="w-8 h-8 mr-5" icon="emojione-monotone:paw-prints"
+                        style="color: #d9d9d9; font-size:40px;"></iconify-icon>
+                    <h1 class="text-2xl font-bold">Animaps Admin</h1>
+                </div>
 
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
-    <nav class="bg-blue-600 p-4 text-white">
-        <div class="container mx-auto flex justify-between items-center">
-            <!-- Logo -->
-            <div class="flex items-center">
-                <iconify-icon class="w-8 h-8 mr-5" icon="emojione-monotone:paw-prints"
-                    style="color: #d9d9d9; font-size:40px;"></iconify-icon>
-                <h1 class="text-2xl font-bold">Animaps Admin</h1>
+                <!-- Navigation Links -->
+                <ul class="flex items-center space-x-4">
+                    <li><a href="{% url 'registrar' %}" class="text-white">Adicionar nova denúncia</a></li>
+                    <li><a href="{% url 'painel-relatorio' %} " class="text-white">Painel de denúncias</a></li>
+                    <li><a href="{% url 'painel-usuario' %} " class="text-white">Painel de usuário</a></li>
+                    <li><a href="{% url 'logout' %}" class="text-white">Logout</a></li>
+                </ul>
             </div>
-
-            <!-- Navigation Links -->
-            <ul class="flex items-center space-x-4">
-                <li><a href="{% url 'add_animal' %}" class="text-white">Adicionar nova denúncia</a></li>
-                <li><a href="{% url 'animais' %} " class="text-white">Painel de denúncias</a></li>
-                <li><a href="{% url 'dashboardUser' %} " class="text-white">Painel de usuário</a></li>
-                <li><a href="{% url 'deslogarUsuario' %}" class="text-white">Logout</a></li>
-            </ul>
-        </div>
-    </nav>
+        </nav>
 
 
 
-<section class="bg-gray-50 dark:bg-gray-900">
-  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-      <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                  Altere sua senha
-              </h1>
-              <form class="space-y-4 md:space-y-6" method="post">
-                  {% csrf_token %}
-                  <div>
-                      <label for="old_password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Senha atual</label>
-                      {{ form_senha.old_password.errors }}
-                      {{ form_senha.old_password|add_class:"bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " }}
+        <section class="bg-gray-50 dark:bg-gray-900">
+            <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+                <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                    <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                            Altere sua senha
+                        </h1>
+                        <form class="space-y-4 md:space-y-6" method="post">
+                            {% csrf_token %}
+                            <div>
+                                <label for="old_password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Senha atual</label>
+                                {{ form_senha.old_password.errors }}
+                                {{ form_senha.old_password|add_class:"bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " }}
 
-                  </div>
-                  <div>
-                      <label for="newpassword1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nova senha</label>
-                      {{ form_senha.new_password1.errors }} 
-                      {{ form_senha.new_password1|add_class:"bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " }}
+                            </div>
+                            <div>
+                                <label for="newpassword1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nova senha</label>
+                                {{ form_senha.new_password1.errors }} 
+                                {{ form_senha.new_password1|add_class:"bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " }}
 
-                  </div>
-                  <div>
-                      <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Senha</label>
-                      {{ form_senha.new_password2.errors }} 
-                      {{ form_senha.new_password2|add_class:"bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " }}
+                            </div>
+                            <div>
+                                <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Senha</label>
+                                {{ form_senha.new_password2.errors }} 
+                                {{ form_senha.new_password2|add_class:"bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " }}
 
-                  </div>
-                  <button type="submit" class="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Alterar</button>
-              </form>
-          </div>
-      </div>
-  </div>
-</section>
-    <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
-</body>
+                            </div>
+                            <button type="submit" class="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Alterar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+    </body>
 
 </html>
 

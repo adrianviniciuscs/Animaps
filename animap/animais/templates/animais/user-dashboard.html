@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% load static %}
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
         integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
         crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
-        integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+        <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+            integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
         crossorigin=""></script>
 
-    <title>Animais</title>
-</head>
+        <title>Animais</title>
+    </head>
 
-<body class="bg-white font-sans leading-normal tracking-normal">
-    
-    {% include '../templs/header.html' %}
+    <body class="bg-white font-sans leading-normal tracking-normal">
 
-       <div class="container mx-auto ">
-        <div class="">
-            {% for animal in useranimais %}
+        {% include '../templs/header.html' %}
+
+        <div class="container mx-auto ">
             <div class="">
+                {% for animal in useranimais %}
                 <div class="">
-                    <p class="italic">{{ animal.user }}</p>
-                    <p class="italic">{{ animal.username }}</p>
-                    <p class="italic">{{ animal.endereço }}</p>
-                    <p class="italic">{{ animal.descriçao }}</p>
-                    <p class="italic">{{ animal.ponto_ref }}</p>
-                    <div class="detail">
-                        {% if animal.foto %}
-                        <img src="{{ animal.foto.url }}">
-                        {% endif %}
+                    <div class="">
+                        <p class="italic">{{ animal.user }}</p>
+                        <p class="italic">{{ animal.username }}</p>
+                        <p class="italic">{{ animal.endereço }}</p>
+                        <p class="italic">{{ animal.descriçao }}</p>
+                        <p class="italic">{{ animal.ponto_ref }}</p>
+                        <div class="detail">
+                            {% if animal.foto %}
+                            <img src="{{ animal.foto.url }}">
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-            </div>
-            {% endfor %}
-            {% if useranimais|length  == 0 %}
+                {% endfor %}
+                {% if useranimais|length  == 0 %}
                 <h1> Você não adicionou nenhuma denúncia. </h1>
-            {% endif %}
+                {% endif %}
+            </div>
         </div>
-    </div>
 
-    <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
-</body>
+        <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+    </body>
 
 </html>
 

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         {% load static %}
         <meta charset="UTF-8">
@@ -15,47 +14,54 @@
         <title>Animaps Admin Dashboard</title>
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     </head>
-
-    <body class="bg-gray-100 font-sans leading-normal tracking-normal">
-
-
     {% include '../templs/header.html' %}
 
+    <body class="bg-gray-100 font-sans leading-normal tracking-normal">
+        <div class="container mx-auto p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2">
 
-
-        <div class="bg-white p-4 rounded shadow-lg">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-xl font-bold">Total de Denúncias Pendentes:</span>
-                        <span class="text-2xl font-bold text-blue-600">{{ count  }}</span>
-                    </div>
+                <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Relatórios Pendentes</h5>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><span class="font-bold"> {{ count }} </span> denúncias. </p>
                 </div>
 
-        <div class="container mx-auto p-8">
-          
+                <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <a href="#">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Relatórios finalizados</h5>
+                    </a>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"> <span class="font-bold"> {{ count_resolvidos }} </span> relatório(s). </p>
+                    <a href="{% url 'relatorios_concluidos' %}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Acessar lista
+                        <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
             <div class="mt-8 bg-white p-4 rounded shadow-lg">
-                <h2 class="text-2xl font-bold mb-4">Mapa de denúncias:</h2>
+                <h2 class="text-2xl font-bold mb-4">Mapa de relatórios:</h2>
                 <div id="mapid" class="h-80 z-10"></div>
             </div>
         </div>
-        <h2 class="text-2xl font-bold mb-4">Lista de denúncias:</h2>
-            <div class="grid xl:grid-cols-3  gap-8"> 
-           
-                {% for animal in animais %}
-                    <div class="bg-white p-4 rounded shadow-lg">
-                        {% if animal.foto %}         
-                        <img src="{{ animal.foto.url }}" alt="Animal" class="w-full h-32 object-cover mb-4 rounded">
-                        {% endif %}
-                        <h3 class="text-xl font-bold mb-2">{{ animal.descriçao }}</h3>
-                        <p class="text-gray-700 mb-2">{{ animal.endereço }} </p>
-                        <p class="text-gray-700 mb-4">{{ animal.ponto_ref }} </p>
-                        <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" href="{% url 'dashboardAnimal' pk=animal.id %}"> Detalhar </a>
-                    </div>
-                    {% endfor %}
-                </div>
+        <h2 class="text-2xl font-bold mb-4">Lista de relatórios pendentes:</h2>
+        <div class="grid xl:grid-cols-3  gap-8"> 
 
+            {% for animal in animais %}
+            <div class="bg-white p-4 rounded shadow-lg">
+                {% if animal.foto %}         
+                <img src="{{ animal.foto.url }}" alt="Animal" class="w-full h-32 object-cover mb-4 rounded">
+                {% endif %}
+                <h3 class="text-xl font-bold mb-2">{{ animal.descriçao }}</h3>
+                <p class="text-gray-700 mb-2">{{ animal.endereço }} </p>
+                <p class="text-gray-700 mb-4">{{ animal.ponto_ref }} </p>
+                <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" href="{% url 'relatorio-animal' pk=animal.id %}"> Detalhar </a>
             </div>
+            {% endfor %}
+        </div>
 
-            </div>
+        </div>
+
+        </div>
         <script type="text/javascript" src="{% static 'animais/js/animais.js' %}"> </script>
         <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"> </script>
     </body>
