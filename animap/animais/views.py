@@ -19,6 +19,7 @@ from rest_framework.decorators import api_view
 
 from .pdfgenerator import gerarPDF
 
+
 class DashboardAnimaisView(PermissionRequiredMixin, LoginRequiredMixin, TemplateView):
     permission_required = ('can_delete_animal_entry', 'can_change_entry')
     template_name = "animais/admin-dashboard.html"
@@ -50,7 +51,8 @@ class DashboardResolvidosView(PermissionRequiredMixin, LoginRequiredMixin, Templ
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        animais = Animal.objects.filter(Q(state='Resgatado') | Q(state='Não Localizado'))  
+        animais = Animal.objects.filter(
+            Q(state='Resgatado') | Q(state='Não Localizado'))
         count = animais.count()
 
         # Removendo partes desnecessárias para o usuário
@@ -64,7 +66,6 @@ class DashboardResolvidosView(PermissionRequiredMixin, LoginRequiredMixin, Templ
         return context
 
 
-
 class DashboardAnimalView(PermissionRequiredMixin, LoginRequiredMixin, DetailView):
     permission_required = ('can_delete_animal_entry', 'can_change_entry')
     model = Animal
@@ -75,7 +76,7 @@ def cadastrar_usuario(request):
     if request.method == "POST":
         form_usuario = UserCreationForm(request.POST)
         if form_usuario.is_valid():
-            user  = form_usuario.save()
+            user = form_usuario.save()
             group = Group.objects.get(name='Usuários')
             user.groups.add(group)
             return redirect('login')
