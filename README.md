@@ -1,8 +1,6 @@
 # Animaps
 Animaps é um sistema web projetado para permitir que as pessoas reportem animais abandonados nas ruas à Zoonoses da administração pública. Para adicionar uma denúncia, os usuários inserem informações sobre o animal (descrição, endereço, ponto de referência e foto) e marcam no mapa. As informações sobre as denúncias são exibidas em um painel para os administradores do site, juntamente com um mapa que mostra todas as denúncias.
 
-Vídeo de demonstração [_aqui_](https://drive.google.com/file/d/1Q4ufFsamGqmXTfEM5r9crPijr8vtOsqt/view?usp=sharing).
-
 ## Sumário
 * [Introdução](#introdução)
 * [Tecnologias utilizadas](#tecnologias-utilizadas)
